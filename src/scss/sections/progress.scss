@@ -1,0 +1,138 @@
+.progress {
+  margin-bottom: 20rem;
+
+  --gap: 4rem;
+
+  @media (max-width: 48em) {
+    --gap: 6rem;
+  }
+
+  // .progress__container
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 9rem;
+
+    @media (max-width: 48em) {
+      row-gap: 6rem;
+    }
+  }
+
+  // .progress__timeline
+
+  &__timeline {
+    padding-top: 3rem;
+
+    border-top: 1px dashed var(--c-primary);
+
+    overflow: hidden;
+
+    @media (max-width: 48em) {
+      padding-top: 5rem;
+
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+  // .progress__list
+
+  &__list {
+    display: flex;
+    column-gap: var(--gap);
+
+    counter-reset: list;
+  }
+
+  // .progress__group
+
+  &__group {
+    width: calc(25% - var(--gap));
+    flex: 0 0 calc(25% - var(--gap));
+
+    .group-progress__number::after {
+      content: counter(list, decimal-leading-zero);
+      counter-increment: list;
+    }
+
+    @media (max-width: 48em) {
+      width: calc(80% - var(--gap));
+      flex: 0 0 calc(80% - var(--gap));
+    }
+  }
+}
+
+.group-progress {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+
+  // .group-progress__head
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  // .group-progress__heading
+
+  &__heading {
+    white-space: nowrap;
+
+    &::before {
+      content: '[';
+    }
+    &::after {
+      content: ']';
+    }
+  }
+
+  // .group-progress__number
+
+  &__number {
+    &::before {
+      content: '00-';
+    }
+  }
+
+  // .group-progress__icon-wrap
+
+  &__icon-wrap {
+    padding: 0 1.5rem;
+
+    display: flex;
+    align-items: center;
+    height: 13rem;
+    background-color: #f3f4f6;
+
+    @media (max-width: 48em) {
+      height: 17rem;
+    }
+  }
+
+  // .group-progress__icon
+
+  &__icon {
+    width: 9.5rem;
+
+    filter: grayscale(1);
+    mix-blend-mode: darken;
+
+    @media (min-width: 48.01em) {
+      width: 8rem;
+    }
+  }
+
+  // .group-progress__text
+
+  &__text {
+    text-align: justify;
+  }
+}

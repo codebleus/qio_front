@@ -1,0 +1,148 @@
+.services-info {
+  margin-bottom: 14rem;
+
+  // .services-info__container
+
+  &__container {
+    display: flex;
+    flex-direction: column-reverse;
+    row-gap: 4rem;
+
+    background-color: #f0f1f4;
+
+    &.container {
+      padding-top: 9rem;
+      padding-bottom: 9rem;
+
+      @media (min-width: 48.01em) {
+        padding-right: 3rem;
+
+        display: grid;
+        grid-template-columns: 5fr 7fr;
+      }
+    }
+  }
+
+  // .services-info__aside
+
+  &__aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: 4rem;
+
+    @media (min-width: 48.01em) {
+      padding-left: 15.6rem;
+    }
+  }
+
+  // .services-info__subtitle
+
+  &__subtitle {
+    font-size: 2rem;
+
+    &::before {
+      content: '/';
+
+      margin-right: 2.4rem;
+    }
+
+    @media (max-width: 48em) {
+      display: none;
+    }
+  }
+
+  &__icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20.9rem;
+    height: 20.9rem;
+    border-radius: 0.3rem;
+
+    background-color: var(--c-bg);
+
+    @media (max-width: 48em) {
+      width: 100%;
+    }
+  }
+
+  // .services-info__icon
+
+  &__icon {
+    width: 11.8rem;
+    height: 15rem;
+
+    @media (max-width: 48em) {
+      width: 15.8rem;
+    }
+  }
+
+  // .services-info__content
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // .services-info__title
+
+  &__title {
+    margin-bottom: 6rem;
+  }
+
+  // .services-info__text
+
+  &__text {
+    margin-bottom: 4rem;
+
+    text-align: justify;
+
+    @media (max-width: 48em) {
+      margin-bottom: 6rem;
+    }
+  }
+
+  // .services-info__accordion-list
+
+  &__accordion-list {
+    display: flex;
+    flex-direction: column;
+
+    counter-reset: item;
+
+    .accordion-item {
+      &__btn {
+        grid-template-columns: 1fr auto;
+      }
+      &__content {
+        padding-top: 3rem;
+        padding-bottom: 5rem;
+
+        display: flex;
+      }
+      &__txt {
+        max-width: none;
+
+        line-height: 140%;
+
+        @media (min-width: 48.01em) {
+          max-width: 62.2rem;
+        }
+      }
+      &__title {
+        &::before {
+          content: counter(item, decimal-leading-zero);
+          counter-increment: item;
+
+          margin-right: 4.5rem;
+        }
+      }
+    }
+  }
+
+  // .services-info__accordion-item
+
+  &__accordion-item {
+  }
+}

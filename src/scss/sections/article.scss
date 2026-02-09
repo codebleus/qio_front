@@ -1,0 +1,142 @@
+.article {
+  margin-bottom: 12rem;
+
+  // .article__container
+
+  &__container {
+  }
+
+  // .article__body
+
+  &__body {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--c-gray);
+    border-top: 1px solid var(--c-gray);
+
+    @media (min-width: 48.01em) {
+      &::after {
+        content: '';
+
+        position: absolute;
+        top: 0;
+        left: 63.5rem;
+
+        width: 1px;
+        height: 100%;
+
+        background-color: var(--c-gray);
+      }
+    }
+  }
+
+  // .article__wrap
+
+  &__wrap {
+    display: grid;
+    column-gap: 11rem;
+
+    @media (min-width: 48.01em) {
+      padding-right: 12.8rem;
+
+      grid-template-columns: 63.5rem 1fr;
+    }
+
+    &:not(:last-child) {
+      .article__group {
+        border-bottom: 1px solid var(--c-gray);
+      }
+    }
+  }
+
+  // .article__heading-wrap
+
+  &__heading-wrap {
+    padding: 8rem 0;
+
+    @media (max-width: 48em) {
+      padding: 0;
+      padding-top: 5rem;
+    }
+  }
+
+  // .article__heading
+
+  &__heading {
+    @media (min-width: 48.01em) {
+      position: sticky;
+      top: 10rem;
+      left: 0;
+    }
+  }
+
+  // .article__group
+
+  &__group {
+    position: relative;
+
+    padding: 8rem 0;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 2.5rem;
+
+    @media (max-width: 48em) {
+      padding: 5rem 0;
+
+      row-gap: 3rem;
+    }
+  }
+
+  // .article__text
+
+  &__text {
+  }
+
+  // .article__list
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2.5rem;
+
+    @media (max-width: 48em) {
+      row-gap: 3rem;
+    }
+  }
+
+  // .article__list-item
+
+  &__list-item {
+    display: flex;
+    column-gap: 1.5rem;
+
+    color: #a3a5a9;
+
+    @media (max-width: 48em) {
+      column-gap: 3rem;
+    }
+
+    &::before {
+      content: '';
+
+      flex: 0 0 0.4rem;
+      width: 0.4rem;
+      height: 0.4rem;
+
+      background-color: var(--c-primary);
+
+      transform: translateY(0.5rem);
+
+      @media (max-width: 48em) {
+        flex: 0 0 0.8rem;
+        width: 0.8rem;
+        height: 0.8rem;
+
+        transform: translateY(0.7rem);
+      }
+    }
+  }
+}

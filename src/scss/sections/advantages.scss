@@ -1,0 +1,150 @@
+.advantages {
+  margin-bottom: 10rem;
+
+  // .advantages__container
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // .advantages__head
+
+  &__head {
+    margin-bottom: 9rem;
+
+    display: grid;
+    grid-template-columns: repeat(3, 4fr);
+
+    @media (max-width: 48em) {
+      display: flex;
+      flex-direction: column;
+      row-gap: 4rem;
+    }
+  }
+
+  // .advantages__subtitle
+
+  &__subtitle {
+    &::before {
+      content: '[';
+    }
+    &::after {
+      content: ']';
+    }
+  }
+
+  // .advantages__text
+
+  &__text {
+    position: relative;
+
+    text-align: justify;
+
+    @media (min-width: 48.01em) {
+      width: 62.3rem;
+
+      &::before {
+        content: '→';
+
+        position: absolute;
+        top: 0;
+        left: -2.5rem;
+
+        font-size: 1.3rem;
+
+        transform: translateX(-100%);
+      }
+    }
+  }
+
+  // .advantages__body
+
+  &__body {
+  }
+
+  // .advantages__list
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+
+    counter-reset: item;
+  }
+
+  // .advantages__item
+
+  &__item {
+  }
+}
+
+.item-advantages {
+  border-bottom: 1px solid #cccccc;
+
+  &:first-child {
+    border-top: 1px solid #cccccc;
+  }
+
+  // .item-advantages__inner
+
+  &__inner {
+    position: relative;
+
+    padding: 4.7rem 0;
+
+    display: grid;
+    grid-template-columns: repeat(3, 4fr);
+
+    @media (max-width: 48em) {
+      display: flex;
+      flex-direction: column;
+      row-gap: 4rem;
+    }
+
+    @media (min-width: 48.01em) {
+      &::before {
+        content: '';
+
+        position: absolute;
+        top: 5.3rem;
+        left: 0;
+
+        width: 0.6rem;
+        height: 0.6rem;
+
+        background-color: var(--c-primary);
+      }
+
+      &::after {
+        content: counter(item);
+        counter-increment: item;
+
+        position: absolute;
+        top: 4.7rem;
+        right: 45.2rem;
+      }
+    }
+  }
+
+  // .item-advantages__title
+
+  &__title {
+    font: var(--txt-semi);
+
+    @media (min-width: 48.01em) {
+      padding-left: 16.7rem;
+    }
+  }
+
+  // .item-advantages__text
+
+  &__text {
+    text-align: justify;
+
+    opacity: 0.5;
+
+    @media (min-width: 48.01em) {
+      width: 62.1rem;
+    }
+  }
+}

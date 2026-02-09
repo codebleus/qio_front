@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+  @@include('html/_head.htm',{ "title":"Веб-разработка" })
+  <body class="">
+    @@include('html/_header.htm',{})
+    <div class="capsule">
+      <div class="wrapper">
+        <main class="main">
+          @@include('html/service.htm',{}) @@include('html/approach.htm',{})
+          @@include('html/process.htm',{}) @@include('html/stack.htm',{})
+          @@include('html/cases.htm',{}) @@include('html/prices.htm',{})
+          @@include('html/info.htm',{}) @@include('html/faq.htm',{})
+          @@include('html/other.htm',{})
+          <section class="footer-upper">
+            <div data-content class="footer-upper__container container">
+              <div class="footer-upper__bg-text bg-text">SAY HI</div>
+              <h2 class="footer-upper__heading h-main">
+                <span class="h-main__txt">
+                  <span
+                    data-scramble-text="Let’s Bring YOUR VISIONS to REAL Life"
+                    >Let’s Bring YOUR VISIONS to REAL Life</span
+                  >
+                </span>
+              </h2>
+              <div class="footer-upper__contacts">
+                <a
+                  href="#"
+                  target="_blank"
+                  data-scramble-text="telegram"
+                  class="footer-upper__contacts-item"
+                  >telegram</a
+                >
+                <a
+                  href="#"
+                  target="_blank"
+                  data-scramble-text="whatsapp"
+                  class="footer-upper__contacts-item"
+                  >whatsapp</a
+                >
+              </div>
+              <form data-form-validate action="#" class="footer-upper__form">
+                <div class="footer-upper__group">
+                  <span class="footer-upper__hint"
+                    ><span data-scramble-text="Let us know how we can help"
+                      >Let us know how we can help</span
+                    ></span
+                  >
+                  <div class="footer-upper__badges _hidden-scrollbar">
+                    <div class="footer-upper__badge badge">
+                      <input
+                        class="badge__input"
+                        checked
+                        type="radio"
+                        name="service" />
+                      <span data-scramble-text="all" class="badge__text"
+                        >all</span
+                      >
+                    </div>
+                    <div class="footer-upper__badge badge">
+                      <input class="badge__input" type="radio" name="service" />
+                      <span data-scramble-text="webdesign" class="badge__text"
+                        >webdesign</span
+                      >
+                    </div>
+                    <div class="footer-upper__badge badge">
+                      <input class="badge__input" type="radio" name="service" />
+                      <span data-scramble-text="seo" class="badge__text"
+                        >seo</span
+                      >
+                    </div>
+                    <div class="footer-upper__badge badge">
+                      <input class="badge__input" type="radio" name="service" />
+                      <span data-scramble-text="branding" class="badge__text"
+                        >branding</span
+                      >
+                    </div>
+                    <div class="footer-upper__badge badge">
+                      <input class="badge__input" type="radio" name="service" />
+                      <span
+                        data-scramble-text="optimisation"
+                        class="badge__text"
+                        >optimisation</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="footer-upper__fields">
+                  <div data-field class="footer-upper__field field">
+                    <input
+                      data-required
+                      autocomplete="off"
+                      type="text"
+                      data-name-mask
+                      minlength="1"
+                      name="form[]"
+                      placeholder="NAME"
+                      class="field__input" />
+                  </div>
+                  <div data-field class="footer-upper__field field">
+                    <input
+                      data-required
+                      autocomplete="off"
+                      type="tel"
+                      minlength="1"
+                      data-tel-mask
+                      name="form[]"
+                      placeholder="PHONE"
+                      class="field__input" />
+                  </div>
+                  <div
+                    data-field
+                    class="footer-upper__field field field_textarea">
+                    <textarea
+                      data-required
+                      placeholder="MESSAGE"
+                      class="field__input"
+                      minlength="1"
+                      maxlength="3000"></textarea>
+                  </div>
+                  <div class="form-message form-message_success btn-secondary">
+                    thank you, your request is sent. we'll contact you asap
+                  </div>
+                  <button type="submit" class="field__btn btn-secondary">
+                    submit
+                  </button>
+                </div>
+              </form>
+            </div>
+          </section>
+        </main>
+        @@include('html/_footer.htm',{}) @@include('html/_preloader.htm',{})
+        @@include('html/_svg.htm',{})
+      </div>
+    </div>
+
+    @@include('html/_js.htm')
+  </body>
+</html>

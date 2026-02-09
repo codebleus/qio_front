@@ -1,0 +1,95 @@
+<head>
+  <title>@@title</title>
+  <meta charset="UTF-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <!-- <style>body{opacity: 0;}</style> -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <!-- <meta name="robots" content="noindex, nofollow"> -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/three.js/88/three.min.js"
+    defer></script>
+  <script type="x-shader/x-vertex" id="vertexshader1">
+
+    precision highp float;
+
+    attribute float size;
+    uniform vec4 planet1;
+    uniform vec4 planet2;
+
+    varying float vDisplay;
+    varying float vColor;
+
+    vec4 distanceTo(vec3 p1, vec4 p2){ // simple function that returns a vec4 of the distance between 3d points.  each position being that axis' distance.  the 4th position being the overall distance
+    	vec3 d = vec3(p2.x - p1.x, p2.y - p1.y, p2.z - p1.z);
+
+    	return vec4(abs(d.x),
+    			  abs(d.y),
+    			  abs(d.z),
+    			  sqrt(d.x*d.x + d.y*d.y + d.z*d.z));
+    }
+
+    void main() {
+    	vec3 p = position;
+
+    	float g = 5000.; // constant rate of gravity, I treat it sort of like a scaler
+
+    	vec4 distP1 = distanceTo(p, planet1); // get distance from point to planet
+    	//vec4 distP2 = distanceTo(p, planet2);
+
+    	vec3 vp1 = vec3(p.x - planet1.x, p.y - planet1.y, p.z - planet1.z); // find vector between point and planet (kind of like the angle between the two points)
+    	//vec3 vp2 = vec3(p.x - planet2.x, p.y - planet2.y, p.z - planet2.z);
+
+    	float pull = (g*planet1.w) / (distP1.w * distP1.w); // find the amount gravity is effecting this point
+    	vec3 newp = p.xyz + (-pull * vp1.xyz); // push the point towards the planet with the "angle" vector we made above, with the amount set in the pull variable
+
+    	//pull = (g*planet2.w) / (distP2.w * distP2.w);
+    	//newp = newp.xyz + (-pull * vp2.xyz);
+
+
+    	gl_PointSize = 1.;
+    	gl_Position = projectionMatrix * modelViewMatrix * vec4(newp, 1.0);
+
+    	vDisplay = 0.;
+    	if(pull < 1.){ vDisplay = 1.; } // hide overly-pulled vertex's
+
+    	vColor = clamp(pull, 0.133333333, 1.);
+    }
+  </script>
+
+  <script type="x-shader/x-fragment" id="fragmentshader1">
+    uniform sampler2D texture;
+    uniform vec2 resolution;
+
+    varying float vDisplay;
+    varying float vColor;
+
+    void main() {
+    	vec2 st = gl_FragCoord.xy/resolution.xy;
+    	st.x *= resolution.x/resolution.y;
+
+
+    	float c = clamp(vColor, 0.0, 0.4);
+
+    	gl_FragColor = vec4(c, c, c, vDisplay );
+    }
+  </script>
+  <script defer type="x-shader/x-vertex" id="vertexshader">
+    attribute float scale;
+    void main() {
+      vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+      gl_PointSize = scale * ( 300.0 / - mvPosition.z );
+      gl_Position = projectionMatrix * mvPosition;
+    }
+  </script>
+  <script defer type="x-shader/x-fragment" id="fragmentshader">
+    uniform vec3 color;
+    void main() {
+      if ( length( gl_PointCoord - vec2( 0.5, 0.5 ) ) > 0.475 ) discard;
+      gl_FragColor = vec4( color, 1.0 );
+    }
+  </script>
+</head>

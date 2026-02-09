@@ -1,0 +1,211 @@
+.context-include {
+  position: relative;
+  z-index: 3;
+  background-color: var(--c-bg);
+  text-transform: none;
+  padding-bottom: 11rem;
+  will-change: filter;
+  filter: drop-shadow(0 14rem 6.2rem rgba(0, 0, 0, 0.16));
+  // .context-include__container
+
+  &__container {
+    gap: 9.2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  // .context-include__head
+
+  &__head {
+    gap: 5.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  // .context-include__heading
+
+  &__heading {
+  }
+
+  // .context-include__txt
+
+  &__txt {
+    max-width: 45.4rem;
+  }
+
+  // .context-include__list
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4rem 3.2rem;
+
+    @media (max-width: 49em) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  // .context-include__item
+
+  &__item {
+  }
+}
+
+.item-context-include {
+  @media (min-width: 49.01em) {
+    &:not(
+      :nth-child(1),
+      :nth-child(2),
+      :nth-child(3),
+      :nth-child(4),
+      &_selected
+    ) {
+      .item-context-include {
+        &__ic-wrap {
+          position: static;
+          display: flex;
+          justify-content: center;
+          margin-top: auto;
+        }
+        &__ic {
+          flex: 0 0 12rem;
+          width: 12rem;
+          height: 12rem;
+          clip-path: inset(0 2px 0 0);
+        }
+      }
+    }
+    &:not(:nth-child(1), :nth-child(2), :nth-child(3), :nth-child(4)) {
+      .item-context-include {
+        &__inner {
+          min-height: 37.5rem;
+        }
+      }
+    }
+  }
+  &.item-context-include_selected {
+    grid-column: span 2;
+    .item-context-include {
+      &__inner {
+        background-color: black;
+        color: var(--c-bg);
+        justify-content: center;
+
+        @media (min-width: 49.01em) {
+          gap: 7rem;
+        }
+      }
+      &__ic-wrap {
+        filter: invert(1);
+        position: absolute;
+        top: 45%;
+        right: 12rem;
+        transform: translateY(-50%);
+
+        @media (max-width: 49em) {
+          transform: none;
+          display: flex;
+          justify-content: center;
+          position: static;
+        }
+      }
+      &__ic {
+        width: 25rem;
+        height: 25rem;
+        flex: 0 0 25rem;
+        transform: rotate(-90deg);
+      }
+    }
+  }
+
+  // .item-context-include__inner
+
+  &__inner {
+    position: relative;
+    min-height: 22rem;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+    border-radius: 3rem;
+    background-color: var(--c-bg);
+    box-shadow: inset 0 0 2.4rem 1rem rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.3s var(--ease-out-cubic);
+    @media (any-hover: hover) {
+      &:hover {
+        &::before {
+          opacity: 1;
+        }
+      }
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
+      box-shadow: 1.6rem 1.4rem 2.3rem rgba(0, 0, 0, 0.16);
+      border-radius: 3rem;
+      pointer-events: none;
+    }
+    @media (max-width: 49em) {
+      padding: 5rem 4rem;
+      min-height: 30rem;
+    }
+  }
+
+  // .item-context-include__heading
+
+  &__heading {
+    position: relative;
+    z-index: 2;
+  }
+
+  // .item-context-include__txt
+
+  &__txt {
+    position: relative;
+    z-index: 2;
+    padding-right: 4rem;
+    max-width: 30.6rem;
+
+    @media (max-width: 49em) {
+      padding-right: 0;
+      max-width: 48.6rem;
+    }
+  }
+
+  // .item-context-include__ic-wrap
+
+  &__ic-wrap {
+    z-index: 2;
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+
+    @media (max-width: 49em) {
+      bottom: 4rem;
+      right: 4rem;
+    }
+  }
+
+  // .item-context-include__ic
+
+  &__ic {
+    flex: 0 0 3.5rem;
+    width: 3.5rem;
+    height: 3.5rem;
+
+    @media (max-width: 49em) {
+      flex: 0 0 6rem;
+      width: 6rem;
+      height: 6rem;
+    }
+  }
+}

@@ -1,0 +1,54 @@
+.page-head {
+  padding-top: 14.7rem;
+  padding-bottom: 8.2rem;
+
+  @media (max-width: 48em) {
+    padding-top: 20rem;
+    padding-bottom: 10rem;
+  }
+
+  // .page-head__container
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+
+    @media (max-width: 48em) {
+      flex-direction: column;
+      row-gap: 4rem;
+    }
+  }
+
+  // .page-head__heading-wrap
+
+  &__heading-wrap {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+
+    @media (max-width: 48em) {
+      row-gap: 2rem;
+    }
+  }
+
+  // .page-head__subtitle
+
+  &__subtitle {
+    &.subtitle {
+      font-weight: 500;
+    }
+  }
+
+  // .page-head__heading
+
+  &__heading {
+  }
+
+  // .page-head__text
+
+  &__text {
+    max-width: 61.6rem;
+
+    text-align: justify;
+  }
+}

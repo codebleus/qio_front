@@ -1,0 +1,140 @@
+.context-cases {
+  padding-top: 15rem;
+  padding-bottom: 15rem;
+  text-transform: none;
+
+  box-shadow: 0 0 6.6rem 3.1rem rgba(0, 0, 0, 0.16);
+  border-radius: 1.1rem 1.1rem 0 0;
+
+  // .context-cases__container
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 12rem;
+
+    @media (max-width: 49em) {
+      gap: 8rem;
+    }
+  }
+
+  // .context-cases__heading
+
+  &__heading {
+    text-align: center;
+
+    @media (max-width: 49em) {
+      font-size: 5rem;
+    }
+  }
+
+  // .context-cases__list
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10rem;
+
+    @media (max-width: 49em) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  // .context-cases__item
+
+  &__item {
+  }
+}
+.item-context-cases {
+  // .item-context-cases__inner
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+
+  // .item-context-cases__bg-wrap
+
+  &__bg-wrap {
+    position: relative;
+    height: 49rem;
+    border-radius: 1rem;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (max-width: 49em) {
+      height: 38rem;
+      border-radius: 2rem;
+    }
+  }
+
+  // .item-context-cases__bg
+
+  &__bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+  }
+
+  // .item-context-cases__content
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  // .item-context-cases__heading
+
+  &__heading {
+  }
+
+  // .item-context-cases__tags
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3.2rem;
+  }
+
+  // .item-context-cases__tag
+
+  &__tag {
+  }
+}
+.tag-item-context-cases {
+  // .tag-item-context-cases__inner
+
+  &__inner {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--c-bg);
+    border-radius: 5rem;
+    padding: 0.8rem 1.3rem;
+    box-shadow: 0.5rem 0.4rem 1.1rem rgba(0, 0, 0, 0.15);
+
+    @media (max-width: 49em) {
+      padding: 1rem 2.4rem;
+    }
+  }
+
+  &__txt.txt-alt {
+    white-space: nowrap;
+    font-size: 1.4rem;
+
+    @media (max-width: 49em) {
+      font-size: 2.8rem;
+    }
+  }
+}

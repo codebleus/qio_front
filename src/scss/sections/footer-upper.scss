@@ -1,0 +1,265 @@
+.homepage {
+  main {
+    // padding-bottom: calc(10rem + 6.5rem);
+    // @media (max-width: 767px) {
+    //   padding-bottom: 10rem;
+    // }
+  }
+}
+.footer-upper {
+  position: relative;
+  z-index: 5;
+
+  background-color: var(--c-bg);
+
+  &__fields-inner {
+    grid-column: span 2;
+  }
+
+  &__hint {
+    position: relative;
+
+    padding-left: 1rem;
+
+    display: inline-flex;
+    align-items: center;
+    column-gap: 1rem;
+
+    &::before {
+      content: '';
+
+      position: absolute;
+      left: 0;
+      top: 50%;
+
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+
+      background-color: var(--c-primary);
+
+      transform: translateY(-50%);
+    }
+
+    @media (max-width: 767px) {
+      display: none;
+    }
+  }
+
+  // .footer-upper__container
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: var(--c-bg);
+
+    .mainpage & {
+      @media (min-width: 767.1px) {
+        padding-right: 11rem;
+      }
+    }
+  }
+
+  &__contacts {
+    position: relative;
+
+    margin-bottom: 4rem;
+
+    @media (max-width: 767px) {
+      margin-bottom: 7rem;
+    }
+  }
+
+  &__heading {
+    margin-bottom: 4rem;
+
+    @media (max-width: 767px) {
+      margin-bottom: 2rem;
+
+      .h-main__txt {
+        font-size: 2.5rem;
+
+        &::after {
+          transform: translateY(0.1rem);
+        }
+      }
+    }
+  }
+
+  // .footer-upper__bg-text
+
+  &__bg-text {
+    margin-bottom: 6rem;
+
+    @media (min-width: 48.01em) {
+      margin-bottom: 3rem;
+      padding-top: 7rem;
+
+      height: 17rem;
+      font-size: 22rem;
+    }
+  }
+
+  &__fields-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &._form-sent {
+      .field__btn {
+        display: none;
+      }
+    }
+
+    .field_textarea textarea {
+      height: 30rem;
+    }
+
+    @media (min-width: 767.1px) {
+      .field_textarea textarea {
+        height: 20rem;
+      }
+      .field_textarea,
+      .btn-secondary {
+        grid-column: span 2;
+      }
+    }
+  }
+
+  // .footer-upper__row
+
+  // .footer-upper__badges
+
+  &__badges {
+    display: flex;
+    column-gap: 4rem;
+  }
+
+  // .footer-upper__badge
+
+  &__badge {
+  }
+
+  &__group {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+
+    display: flex;
+    flex-direction: column;
+
+    border-bottom: 1px solid var(--c-gray);
+
+    @media (min-width: 767.1px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__contacts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    column-gap: 4rem;
+
+    counter-reset: item;
+  }
+
+  // .footer-upper__contacts-item
+
+  &__contacts-item {
+    font: var(--txt-semi);
+
+    &::before {
+      content: counter(item) '.0';
+      counter-increment: item;
+
+      margin-right: 2rem;
+    }
+
+    &:not(:last-child) {
+      display: inline-flex;
+      align-items: center;
+
+      &::after {
+        content: '/';
+
+        margin-left: 4rem;
+      }
+    }
+  }
+
+  // .footer-upper__fields
+
+  &__fields {
+    display: grid;
+    gap: 2rem;
+    width: 100%;
+
+    @media (min-width: 767.1px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+  }
+
+  // .footer-upper__field
+
+  &__field {
+  }
+}
+
+.badge {
+  position: relative;
+
+  display: inline-flex;
+
+  // .badge__input
+
+  &__input {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    appearance: none;
+
+    &:checked + .badge__text {
+      opacity: 1;
+    }
+  }
+
+  // .badge__text
+
+  &__text {
+    white-space: nowrap;
+
+    opacity: 0.4;
+
+    transition: opacity 0.5s ease-in-out;
+  }
+}
+.form-message_success {
+  pointer-events: none;
+
+  @media (max-width: 48em) {
+    padding: 2.5rem 9rem;
+
+    text-align: center;
+    line-height: 140%;
+    white-space: wrap;
+  }
+
+  &:not(._form-sent &) {
+    display: none;
+  }
+}

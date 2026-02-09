@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+  @@include('html/_head.htm',{ "title":"Проект" })
+  <body>
+    @@include('html/_header.htm',{})
+    <div class="capsule">
+      <div class="wrapper">
+        <main class="main">
+          @@include('html/project-hero.htm',{})
+          @@include('html/about-project.htm',{})
+          @@include('html/project-info.htm',{})
+          @@include('html/project-overview.htm',{})
+          @@include('html/next-project.htm',{})
+        </main>
+        @@include('html/_footer.htm',{}) @@include('html/_preloader.htm',{})
+        @@include('html/_svg.htm',{})
+      </div>
+    </div>
+
+    @@include('html/_js.htm',{})
+  </body>
+</html>

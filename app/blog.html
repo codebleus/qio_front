@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<title>Блог</title>
+	<meta charset="UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<!-- <style>body{opacity: 0;}</style> -->
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	<!-- <meta name="robots" content="noindex, nofollow"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/88/three.min.js" defer></script>
+	<script type="x-shader/x-vertex" id="vertexshader1">
+
+		precision highp float;
+
+    attribute float size;
+    uniform vec4 planet1;
+    uniform vec4 planet2;
+
+    varying float vDisplay;
+    varying float vColor;
+
+    vec4 distanceTo(vec3 p1, vec4 p2){ // simple function that returns a vec4 of the distance between 3d points.  each position being that axis' distance.  the 4th position being the overall distance
+    	vec3 d = vec3(p2.x - p1.x, p2.y - p1.y, p2.z - p1.z);
+
+    	return vec4(abs(d.x),
+    			  abs(d.y),
+    			  abs(d.z),
+    			  sqrt(d.x*d.x + d.y*d.y + d.z*d.z));
+    }
+
+    void main() {
+    	vec3 p = position;
+
+    	float g = 5000.; // constant rate of gravity, I treat it sort of like a scaler
+
+    	vec4 distP1 = distanceTo(p, planet1); // get distance from point to planet
+    	//vec4 distP2 = distanceTo(p, planet2);
+
+    	vec3 vp1 = vec3(p.x - planet1.x, p.y - planet1.y, p.z - planet1.z); // find vector between point and planet (kind of like the angle between the two points)
+    	//vec3 vp2 = vec3(p.x - planet2.x, p.y - planet2.y, p.z - planet2.z);
+
+    	float pull = (g*planet1.w) / (distP1.w * distP1.w); // find the amount gravity is effecting this point
+    	vec3 newp = p.xyz + (-pull * vp1.xyz); // push the point towards the planet with the "angle" vector we made above, with the amount set in the pull variable
+
+    	//pull = (g*planet2.w) / (distP2.w * distP2.w);
+    	//newp = newp.xyz + (-pull * vp2.xyz);
+
+
+    	gl_PointSize = 1.;
+    	gl_Position = projectionMatrix * modelViewMatrix * vec4(newp, 1.0);
+
+    	vDisplay = 0.;
+    	if(pull < 1.){ vDisplay = 1.; } // hide overly-pulled vertex's
+
+    	vColor = clamp(pull, 0.133333333, 1.);
+    }
+  </script>
+
+	<script type="x-shader/x-fragment" id="fragmentshader1">
+		uniform sampler2D texture;
+    uniform vec2 resolution;
+
+    varying float vDisplay;
+    varying float vColor;
+
+    void main() {
+    	vec2 st = gl_FragCoord.xy/resolution.xy;
+    	st.x *= resolution.x/resolution.y;
+
+
+    	float c = clamp(vColor, 0.0, 0.4);
+
+    	gl_FragColor = vec4(c, c, c, vDisplay );
+    }
+  </script>
+	<script defer type="x-shader/x-vertex" id="vertexshader">
+		attribute float scale;
+    void main() {
+      vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+      gl_PointSize = scale * ( 300.0 / - mvPosition.z );
+      gl_Position = projectionMatrix * mvPosition;
+    }
+  </script>
+	<script defer type="x-shader/x-fragment" id="fragmentshader">
+		uniform vec3 color;
+    void main() {
+      if ( length( gl_PointCoord - vec2( 0.5, 0.5 ) ) > 0.475 ) discard;
+      gl_FragColor = vec4( color, 1.0 );
+    }
+  </script>
+</head>
+
+<body class="">
+	<header class="header">
+		<div class="header__container container">
+			<a href="/" class="header__logo">
+				<svg viewBox="0 0 89 59" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M28.869 11.3922L59.3788 11.3917C69.2851 11.3915 76.6948 19.5308 76.6948 29.4501V35.2767H88.2386V29.4501C88.2386 13.1469 75.6605 0.552452 59.3786 0.552734L28.8688 0.553275C12.5735 0.553558 0.00976562 13.204 0.00976562 29.4931C0.00976562 45.7823 12.5738 58.4329 28.8693 58.4329H85.9959L76.4491 47.6052H28.8693C18.9768 47.6052 11.5536 39.0826 11.5536 29.4931C11.5536 19.9036 18.9766 11.3924 28.869 11.3922Z" fill="currentColor" />
+				</svg>
+			</a>
+
+			<ul class="header__lang-list">
+				<li class="header__lang-item">
+					<input type="radio" name="lang" />
+					<span class="header__lang-txt"> ru</span>
+				</li>
+				<li class="header__lang-item">
+					<input checked type="radio" name="lang" />
+					<span class="header__lang-txt"> en</span>
+				</li>
+			</ul>
+
+			<button type="button" class="header__hamburger"></button>
+		</div>
+	</header>
+	<div class="menu _hidden-scrollbar">
+		<div class="menu__head">
+			<a href="/" class="menu__logo"><img src="img/logo-sm-dark.svg" alt="" /></a>
+			<button type="button" class="menu__close-btn">
+				<svg>
+					<use href="#cross-svg"></use>
+				</svg>
+			</button>
+		</div>
+		<div class="menu__body">
+			<div class="menu__nav-wrap">
+				<span class="menu__subtitle">menu</span>
+				<nav class="menu__nav">
+					<span class="menu__item"><a href="#" class="menu__item-content" data-splitting>home</a></span>
+					<span class="menu__item"><a href="#" class="menu__item-content" data-splitting>works</a></span>
+					<span class="menu__item"><a href="#" class="menu__item-content" data-splitting>services</a></span>
+					<span class="menu__item"><a href="#" class="menu__item-content" data-splitting>contacts</a></span>
+				</nav>
+			</div>
+			<ul class="menu__quick-links">
+				<li class="menu__ql-item-wrap">
+					<div class="menu__subtitle">quick links</div>
+					<ul class="menu__ql-sublist">
+						<li class="menu__ql-item">
+							<a href="#" class="menu__ql-item-content">The name "Qio" is a symphony of three letters</a>
+						</li>
+						<li class="menu__ql-item">
+							<a href="#" class="menu__ql-item-content">partners</a>
+						</li>
+						<li class="menu__ql-item">
+							<a href="#" class="menu__ql-item-content">contacts</a>
+						</li>
+					</ul>
+				</li>
+				<li class="menu__ql-item-wrap _desktop-only">
+					<div class="menu__subtitle">latest articles</div>
+					<ul class="menu__ql-sublist">
+						<li class="menu__ql-item">
+							<a href="#" class="menu__ql-item-content">The name "Qio" is a symphony of three letters</a>
+						</li>
+						<li class="menu__ql-item">
+							<a href="#" class="menu__ql-item-content">The name "Qio" is a symphony of three letters</a>
+						</li>
+						<li class="menu__ql-item">
+							<a href="#" class="menu__ql-item-content">The name "Qio" is a symphony of three letters</a>
+						</li>
+						<li class="menu__ql-item">
+							<a href="#" class="menu__ql-item-content">The name "Qio" is a symphony of three letters</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+		<div class="menu__footer">
+			<ul class="menu__socials">
+				<li class="menu__sc-item">
+					<a href="#" target="_blank" class="menu__sc-item-inner">1.0 qio.me</a>
+				</li>
+				<li class="menu__sc-item">
+					<a href="#" target="_blank" class="menu__sc-item-inner">2.0 whatsapp</a>
+				</li>
+				<li class="menu__sc-item">
+					<a href="#" target="_blank" class="menu__sc-item-inner">3.0 telegram</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="capsule">
+		<div class="wrapper">
+			<main class="main">
+				<section class="page-head">
+					<div class="page-head__container container">
+						<div class="page-head__heading-wrap">
+							<span class="page-head__subtitle subtitle" data-scramble-text="ANNOUNCEMENTS + MEDIA">ANNOUNCEMENTS + MEDIA</span>
+							<h1 class="page-head__heading h-main">
+								<span class="h-main__txt"><span data-scramble-text="our articles">our articles</span></span>
+							</h1>
+						</div>
+						<p class="page-head__text">
+							this is selection of our articles. Explore Our Latest Announcements,
+							Innovations, and Exclusive Insights. Stay Informed and Discover How We Are
+							Redefining the Boundaries of Technology and Creativity
+						</p>
+					</div>
+				</section>
+
+				<section class="latest-article">
+					<div class="latest-article__container container">
+						<div class="latest-article__content">
+							<div class="latest-article__heading-wrap">
+								<div class="latest-article__info">
+									<span class="latest-article__info-txt" data-scramble-text="5 min">5 min</span>
+									<time datetime="2024-09" class="latest-article__info-txt" data-scramble-text="september 2024">september 2024</time>
+								</div>
+								<h2 class="latest-article__heading">latest article NAME</h2>
+							</div>
+							<p class="latest-article__text">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+								veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+								commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+								velit esse cillum dolore eu fugiat nulla pariatur.
+							</p>
+							<a href="#" class="latest-article__btn btn-primary">read more</a>
+						</div>
+						<a href="#" class="latest-article__image-wrap">
+							<img src="img/content/69FAB8701C27.webp" class="latest-article__image" alt="" />
+						</a>
+					</div>
+				</section>
+
+				<section class="articles">
+					<div class="articles__container container">
+						<div class="articles__head">
+							<h2 class="articles__heading mark" data-scramble-text="are you looking for something specific?">
+								are you looking for something specific?
+							</h2>
+							<div class="articles__filters filters _hidden-scrollbar">
+								<div class="articles__badge badge">
+									<input class="badge__input" checked type="radio" name="article" />
+									<span class="badge__text" data-scramble-text="all">all</span>
+								</div>
+								<div class="articles__badge badge">
+									<input class="badge__input" type="radio" name="article" />
+									<span class="badge__text" data-scramble-text="webdesign">webdesign</span>
+								</div>
+								<div class="articles__badge badge">
+									<input class="badge__input" type="radio" name="article" />
+									<span class="badge__text" data-scramble-text="seo">seo</span>
+								</div>
+								<div class="articles__badge badge">
+									<input class="badge__input" type="radio" name="article" />
+									<span class="badge__text" data-scramble-text="branding">branding</span>
+								</div>
+								<div class="articles__badge badge">
+									<input class="badge__input" type="radio" name="article" />
+									<span class="badge__text" data-scramble-text="optimisation">optimisation</span>
+								</div>
+								<div class="articles__badge badge">
+									<input class="badge__input" type="radio" name="article" />
+									<span class="badge__text" data-scramble-text="e-commerce">e-commerce</span>
+								</div>
+								<div class="articles__badge badge">
+									<input class="badge__input" type="radio" name="article" />
+									<span class="badge__text" data-scramble-text="marketing">marketing</span>
+								</div>
+							</div>
+						</div>
+						<div class="articles__body">
+							<ul class="articles__items">
+								<li class="articles__item item-articles">
+									<a href="#" class="item-articles__image-wrap">
+										<img src="img/content/69FAB8701C27.webp" class="item-articles__image" alt="" />
+									</a>
+									<div class="item-articles__info">
+										<span class="item-articles__info-txt item-articles__info-txt_time" data-scramble-text="5 min">5 min</span>
+										<time datetime="2024-09" class="item-articles__info-txt" data-scramble-text="september 2024">september 2024</time>
+									</div>
+									<span class="item-articles__heading">latest article NAME</span>
+									<p class="item-articles__text">
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+										eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+										ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+										aliquip ex ea commodo consequat. Duis aute irure dolor in
+										reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+										pariatur.
+									</p>
+									<a href="#" class="item-articles__btn btn-primary">read more</a>
+								</li>
+								<li class="articles__item item-articles">
+									<a href="#" class="item-articles__image-wrap">
+										<img src="img/content/994.webp" class="item-articles__image" alt="" />
+									</a>
+									<div class="item-articles__info">
+										<span class="item-articles__info-txt item-articles__info-txt_time" data-scramble-text="5 min">5 min</span>
+										<time datetime="2024-09" class="item-articles__info-txt" data-scramble-text="september 2024">september 2024</time>
+									</div>
+									<span class="item-articles__heading">latest article NAME</span>
+									<p class="item-articles__text">
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+										eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+										ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+										aliquip ex ea commodo consequat. Duis aute irure dolor in
+										reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+										pariatur.
+									</p>
+									<a href="#" class="item-articles__btn btn-primary">read more</a>
+								</li>
+								<li class="articles__item item-articles">
+									<a href="#" class="item-articles__image-wrap">
+										<img src="img/content/683A1990.webp" class="item-articles__image" alt="" />
+									</a>
+									<div class="item-articles__info">
+										<span class="item-articles__info-txt item-articles__info-txt_time" data-scramble-text="5 min">5 min</span>
+										<time datetime="2024-09" class="item-articles__info-txt" data-scramble-text="september 2024">september 2024</time>
+									</div>
+									<span class="item-articles__heading">latest article NAME</span>
+									<p class="item-articles__text">
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+										eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+										ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+										aliquip ex ea commodo consequat. Duis aute irure dolor in
+										reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+										pariatur.
+									</p>
+									<a href="#" class="item-articles__btn btn-primary">read more</a>
+								</li>
+								<li class="articles__item item-articles">
+									<a href="#" class="item-articles__image-wrap">
+										<img src="img/content/683A1990.webp" class="item-articles__image" alt="" />
+									</a>
+									<div class="item-articles__info">
+										<span class="item-articles__info-txt item-articles__info-txt_time" data-scramble-text="5 min">5 min</span>
+										<time datetime="2024-09" class="item-articles__info-txt" data-scramble-text="september 2024">september 2024</time>
+									</div>
+									<span class="item-articles__heading">latest article NAME</span>
+									<p class="item-articles__text">
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+										eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+										ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+										aliquip ex ea commodo consequat. Duis aute irure dolor in
+										reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+										pariatur.
+									</p>
+									<a href="#" class="item-articles__btn btn-primary">read more</a>
+								</li>
+								<li class="articles__item item-articles">
+									<a href="#" class="item-articles__image-wrap">
+										<img src="img/content/69FAB8701C27.webp" class="item-articles__image" alt="" />
+									</a>
+									<div class="item-articles__info">
+										<span class="item-articles__info-txt item-articles__info-txt_time" data-scramble-text="5 min">5 min</span>
+										<time datetime="2024-09" class="item-articles__info-txt" data-scramble-text="september 2024">september 2024</time>
+									</div>
+									<span class="item-articles__heading">latest article NAME</span>
+									<p class="item-articles__text">
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+										eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+										ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+										aliquip ex ea commodo consequat. Duis aute irure dolor in
+										reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+										pariatur.
+									</p>
+									<a href="#" class="item-articles__btn btn-primary">read more</a>
+								</li>
+								<li class="articles__item item-articles">
+									<a href="#" class="item-articles__image-wrap">
+										<img src="img/content/994.webp" class="item-articles__image" alt="" />
+									</a>
+									<div class="item-articles__info">
+										<span class="item-articles__info-txt item-articles__info-txt_time" data-scramble-text="5 min">5 min</span>
+										<time datetime="2024-09" class="item-articles__info-txt" data-scramble-text="september 2024">september 2024</time>
+									</div>
+									<span class="item-articles__heading">latest article NAME</span>
+									<p class="item-articles__text">
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+										eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+										ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+										aliquip ex ea commodo consequat. Duis aute irure dolor in
+										reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+										pariatur.
+									</p>
+									<a href="#" class="item-articles__btn btn-primary">read more</a>
+								</li>
+							</ul>
+							<button type="button" class="articles__loadmore-btn btn">
+								<span class="btn__txt" data-scramble-text="load more" data-splitting>LOAD MORE</span>
+							</button>
+						</div>
+					</div>
+				</section>
+
+			</main>
+			<footer class="footer">
+				<div class="footer__container container">
+					<span class="footer__txt">©<span data-current-year>2025</span>, QIO WEB STUDIO</span>
+					<ul class="footer__contacts">
+						<li class="footer__contacts-item">
+							<a href="mailto:qio@gmail.com" class="footer__contacts-txt">qio@gmail.com</a>
+						</li>
+						<li class="footer__contacts-item">
+							<a href="tel:77777777777" class="footer__contacts-txt">+7 (777) 777 77-77</a>
+						</li>
+					</ul>
+					<span class="footer__txt"><a href="#" target="_blank" class="footer__link">CONFIDENTIAL POLICY</a></span>
+				</div>
+			</footer>
+
+			<div id="messageModal" aria-hidden="true" class="modal">
+				<div class="modal__wrapper">
+					<div class="modal__content">
+						<div class="modal__body">
+							<button data-close type="button" class="modal__close">
+								<svg>
+									<use href="#cross-svg"></use>
+								</svg>
+							</button>
+							<div class="modal__inner">
+								<p class="modal__message">
+									Thank you. We have received your application and will process it
+									shortly.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="preloader">
+				<div class="preloader__container container">
+					<div class="preloader__icons">
+						<i class="preloader__icon"></i>
+						<i class="preloader__icon"></i>
+						<i class="preloader__icon"></i>
+					</div>
+				</div>
+			</div>
+
+			<svg display="none">
+				<symbol id="sm-arr" viewBox="0 0 7 12">
+					<path d="M0.162745 0.155795C0.0639411 0.254786 0.00844898 0.388934 0.00844898 0.528795C0.00844898 0.668657 0.0639411 0.802805 0.162745 0.901795L4.89374 5.6318L0.163744 10.3628C0.112796 10.4113 0.0720684 10.4696 0.0439552 10.5341C0.0158421 10.5986 0.000911314 10.6681 4.04312e-05 10.7385C-0.000830452 10.8089 0.0123757 10.8787 0.0388836 10.9439C0.0653915 11.0091 0.104666 11.0683 0.154397 11.1181C0.204129 11.1679 0.263314 11.2073 0.328473 11.2339C0.393633 11.2605 0.463452 11.2738 0.533826 11.273C0.6042 11.2722 0.673709 11.2574 0.738265 11.2294C0.802822 11.2013 0.861124 11.1607 0.909745 11.1098L6.01374 6.00579C6.06282 5.95676 6.10175 5.89853 6.12831 5.83445C6.15487 5.77036 6.16854 5.70167 6.16854 5.6323C6.16854 5.56292 6.15487 5.49423 6.12831 5.43014C6.10175 5.36606 6.06282 5.30783 6.01374 5.2588L0.909745 0.154796C0.86071 0.105722 0.802485 0.0667923 0.738398 0.0402317C0.674311 0.0136711 0.605618 0 0.536245 0C0.466872 0 0.398179 0.0136711 0.334092 0.0402317C0.270004 0.0667923 0.21178 0.106722 0.162745 0.155795Z" fill="currentColor" />
+				</symbol>
+
+				<symbol id="half-arr-svg" viewBox="0 0 10 29">
+					<path fill="none" d="M9 0V27L1 17.4857" stroke="#0d0d0d" stroke-width="2" />
+				</symbol>
+				<symbol id="arrow-svg" viewBox="0 0 11 10">
+					<path d="M4.59699 7.81378L6.53505 10L11 4.99999L6.53505 0L4.59699
+    2.18621L5.73068 3.45668H0V6.54332H5.7322L4.59699 7.81378Z" fill="currentColor" />
+				</symbol>
+				<symbol viewBox="0 0 14 13" id="arr-svg">
+					<path d="M0 6.5H13M13 6.5L7.52711 12M13 6.5L7.52711 1" stroke="#27282C" stroke-width="1.5" stroke-linejoin="bevel" />
+				</symbol>
+				<symbol id="whatsapp-svg" viewBox="0 0 26 25">
+					<path d="M16.3302 17.8024C11.392 17.8024 7.3744 13.7823 7.37305 8.84263C7.3744 7.59048 8.39367 6.57227 9.64274 6.57227C9.77117 6.57227 9.89823 6.58308 10.0199 6.60472C10.2875 6.64934 10.5417 6.73994 10.7756 6.87651C10.8094 6.8968 10.8323 6.92927 10.8377 6.96713L11.3595 10.257C11.3663 10.2963 11.3541 10.3341 11.3284 10.3625C11.0405 10.6816 10.6728 10.9115 10.2632 11.0265L10.0659 11.0819L10.1402 11.2725C10.8134 12.9872 12.1841 14.3569 13.8996 15.0331L14.0902 15.1088L14.1456 14.9114C14.2605 14.5016 14.4903 14.1338 14.8094 13.8458C14.8323 13.8242 14.8634 13.8134 14.8945 13.8134C14.9013 13.8134 14.9081 13.8134 14.9162 13.8147L18.2051 14.3367C18.2443 14.3434 18.2768 14.3651 18.297 14.3989C18.4322 14.6328 18.5228 14.8884 18.5688 15.1561C18.5904 15.2751 18.5998 15.4008 18.5998 15.532C18.5998 16.7828 17.5819 17.801 16.3302 17.8024Z" fill="currentColor" />
+					<path d="M25.0869 11.0746C24.8206 8.06457 23.4418 5.27227 21.2045 3.21285C18.9538 1.14127 16.0338 0 12.9801 0C6.27782 0 0.824618 5.4548 0.824618 12.1591C0.824618 14.4091 1.44509 16.6011 2.61981 18.5104L0 24.3114L8.388 23.4176C9.8466 24.0152 11.3904 24.3181 12.9787 24.3181C13.3965 24.3181 13.825 24.2965 14.2549 24.2519C14.6334 24.2113 15.0159 24.1518 15.3917 24.0761C21.0045 22.9416 25.1018 17.9587 25.1342 12.224V12.1591C25.1342 11.794 25.118 11.4289 25.0856 11.0759L25.0869 11.0746ZM8.71108 20.8713L4.07032 21.3663L5.45593 18.2954L5.1788 17.9235C5.15852 17.8965 5.13825 17.8694 5.11527 17.8383C3.91215 16.1765 3.27679 14.2131 3.27679 12.1604C3.27679 6.80837 7.62963 2.45425 12.9801 2.45425C17.9926 2.45425 22.2414 6.36621 22.651 11.3599C22.6726 11.6277 22.6848 11.8967 22.6848 12.1618C22.6848 12.2375 22.6834 12.3119 22.6821 12.3916C22.5793 16.8688 19.4526 20.6712 15.0781 21.6394C14.7442 21.7138 14.4022 21.7706 14.0615 21.8071C13.7074 21.8477 13.3437 21.8679 12.9828 21.8679C11.6972 21.8679 10.4482 21.6191 9.26803 21.1269C9.1369 21.0742 9.00847 21.0174 8.88816 20.9593L8.71244 20.874L8.71108 20.8713Z" fill="currentColor" />
+				</symbol>
+				<symbol id="tg-svg" viewBox="0 0 25 21">
+					<path d="M0.656806 9.27607C0.714218 9.24832 0.771656 9.22194 0.827633 9.19697C1.80077 8.7613 2.78682 8.35337 3.77144 7.94545C3.82454 7.94545 3.91351 7.88577 3.96374 7.86635C4.03981 7.83444 4.1159 7.80392 4.19197 7.77201C4.33837 7.71096 4.48478 7.65129 4.62974 7.59024C4.92254 7.46953 5.21389 7.34883 5.50669 7.22812C6.09086 6.9867 6.67502 6.74527 7.25919 6.50246C8.42752 6.01961 9.59732 5.53535 10.7657 5.0525C11.934 4.56965 13.1037 4.08542 14.2721 3.60257C15.4404 3.11972 16.6102 2.63549 17.7785 2.15265C18.9468 1.6698 20.1166 1.18557 21.285 0.702718C21.5448 0.594493 21.8261 0.43354 22.1045 0.386365C22.3385 0.346127 22.5667 0.26844 22.8021 0.225427C23.2484 0.143565 23.7408 0.11026 24.1685 0.289247C24.3163 0.351684 24.4527 0.439079 24.5661 0.548691C25.1086 1.06761 25.0325 1.91956 24.9177 2.64938C24.1182 7.73594 23.3188 12.8239 22.5179 17.9105C22.4088 18.6084 22.2595 19.3743 21.6897 19.8155C21.2074 20.1887 20.5214 20.2303 19.9257 20.0722C19.3301 19.9126 18.8048 19.5782 18.2895 19.2494C16.1523 17.8813 14.0137 16.5132 11.8766 15.1452C11.3685 14.8205 10.803 14.3959 10.8087 13.8062C10.8116 13.451 11.0312 13.1347 11.2551 12.853C13.1124 10.5109 15.7921 8.90144 17.7857 6.66757C18.067 6.3526 18.2881 5.78374 17.902 5.60198C17.6723 5.49375 17.4082 5.6408 17.1986 5.78094C14.5634 7.54999 11.9297 9.32044 9.29447 11.0895C8.43473 11.6667 7.53336 12.2605 6.49707 12.4021C5.56987 12.5297 4.63693 12.28 3.73986 12.0247C2.98777 11.811 2.23708 11.5918 1.48929 11.3656C1.09171 11.2463 0.68121 11.1173 0.374056 10.8467C0.0669013 10.5761 -0.109617 10.1211 0.075537 9.7603C0.191796 9.53414 0.417143 9.39123 0.653967 9.27468L0.656806 9.27607Z" fill="currentColor" />
+				</symbol>
+				<symbol id="logo-mark" viewBox="0 0 89 59">
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M28.869 11.392h30.51c9.906 0 17.316 8.139 17.316 18.058v5.827h11.544V29.45C88.239 13.147 75.66.552 59.379.553h-30.51C12.573.553.009 13.204.009 29.493c0 16.29 12.565 28.94 28.86 28.94h57.127l-9.547-10.828H28.87c-9.892 0-17.315-8.522-17.315-18.112 0-9.59 7.423-18.1 17.315-18.1Z" fill="currentColor" />
+				</symbol>
+				<symbol id="cross-svg" viewBox="0 0 36 36">
+					<path d="M15.4888 20.1926L8.94922 26.7759" stroke="currentColor" stroke-width="3" stroke-linejoin="bevel"></path>
+					<path d="M26.8828 9.05347L18.0645 17.9154L26.8828 26.7774" stroke="currentColor" stroke-width="3" stroke-linejoin="bevel"></path>
+					<path d="M15.4849 15.6382L8.94531 9.05493" stroke="currentColor" stroke-width="3" stroke-linejoin="bevel"></path>
+				</symbol>
+			</svg>
+
+		</div>
+	</div>
+
+	<script defer src="https://cdn.jsdelivr.net/gh/google/diff-match-patch@master/javascript/diff_match_patch.js"></script>
+	<script defer src="js/app.js"></script>
+
+</body>
+
+</html>

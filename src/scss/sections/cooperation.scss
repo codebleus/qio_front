@@ -1,0 +1,128 @@
+.cooperation {
+  padding-top: 18rem;
+  text-transform: none;
+  color: var(--c-bg);
+  position: relative;
+  z-index: 2;
+
+  // .cooperation__container
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 9.5rem;
+  }
+
+  // .cooperation__head
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  // .cooperation__heading
+
+  &__heading {
+    @media (max-width: 49em) {
+      font-size: 5rem;
+    }
+  }
+
+  // .cooperation__txt
+
+  &__txt {
+    max-width: 45.4rem;
+  }
+
+  // .cooperation__list
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 9rem;
+
+    @media (max-width: 49em) {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+  }
+
+  // .cooperation__item
+
+  &__item {
+  }
+}
+
+.item-cooperation {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  // .item-cooperation__inner
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 43.3rem;
+    padding: 4rem 3.5rem;
+    gap: 10rem;
+    border-radius: 10px;
+    overflow: hidden;
+    @media (max-width: 49em) {
+      min-height: 52.3rem;
+    }
+  }
+
+  // .item-cooperation__tag
+
+  &__tag {
+    position: relative;
+
+    z-index: 2;
+    color: black;
+
+    .tag-item-context-case__inner {
+      min-width: 13.7rem;
+    }
+  }
+
+  // .item-cooperation__ic-wrap
+
+  &__ic-wrap {
+    position: absolute;
+    top: 46%;
+    z-index: 2;
+    left: 50%;
+    display: inline-flex;
+    transform: translate(-50%, -50%);
+  }
+
+  // .item-cooperation__ic
+
+  &__ic {
+    flex: 0 0 6.5rem;
+    width: 6.5rem;
+    height: 6.5rem;
+
+    @media (max-width: 49em) {
+      flex: 0 0 8.5rem;
+      width: 8.5rem;
+      height: 8.5rem;
+    }
+  }
+
+  // .item-cooperation__heading
+
+  &__heading {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+}

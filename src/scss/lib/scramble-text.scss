@@ -1,0 +1,19 @@
+[data-scramble-text] {
+  display: inline-flex;
+  flex-wrap: nowrap;
+
+  > * {
+    white-space: pre;
+    overflow: hidden;
+  }
+}
+
+.remove {
+  animation: animateRemove 1s both;
+}
+
+@keyframes animateRemove {
+  to {
+    opacity: 0;
+  }
+}

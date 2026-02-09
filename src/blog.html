@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+  @@include('html/_head.htm',{ "title":"Блог" })
+  <body class="">
+    @@include('html/_header.htm',{})
+    <div class="capsule">
+      <div class="wrapper">
+        <main class="main">
+          @@include('html/page-head.htm',{})
+          @@include('html/latest-article.htm',{})
+          @@include('html/articles.htm',{})
+        </main>
+        @@include('html/_footer.htm',{}) @@include('html/_preloader.htm',{})
+        @@include('html/_svg.htm',{})
+      </div>
+    </div>
+
+    @@include('html/_js.htm')
+  </body>
+</html>

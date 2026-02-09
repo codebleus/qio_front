@@ -1,0 +1,167 @@
+.project-info {
+  padding-bottom: 4rem;
+
+  // .project-info__container
+
+  &__container {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+
+  // .project-info__divider
+
+  &__divider {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    @media (max-width: 48em) {
+      left: 3.2rem;
+
+      width: calc(100% - 6.4rem);
+    }
+  }
+
+  // .project-info__upper
+
+  &__upper {
+    padding-top: 8rem;
+
+    display: grid;
+    gap: 1rem;
+
+    @media (min-width: 48.01em) {
+      padding-top: 3.4rem;
+
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 78.8rem;
+    }
+  }
+
+  // .project-info__image-wrap
+
+  &__image-wrap {
+    height: 100%;
+
+    @media (max-width: 48em) {
+      height: 50rem;
+    }
+  }
+
+  // .project-info__image
+
+  &__image {
+    height: 100%;
+
+    object-fit: cover;
+    object-position: left top;
+  }
+
+  // .project-info__colors-group
+
+  &__colors-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  // .project-info__color
+
+  &__color {
+    padding: 2rem;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: end;
+    column-gap: 1rem;
+    flex: 1 1 auto;
+
+    &:not(&._is-light-color) {
+      color: var(--c-bg);
+    }
+
+    @media (max-width: 48em) {
+      column-gap: 6rem;
+      height: 15rem;
+    }
+  }
+
+  // .project-info__color-txt
+
+  &__color-txt {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
+
+  // .project-info__txt
+
+  &__txt {
+    @media (min-width: 48.01em) {
+      font: var(--txt-semi);
+    }
+  }
+
+  // .project-info__lower
+
+  &__lower {
+    padding: 4rem 0;
+
+    display: flex;
+    column-gap: 18.7rem;
+
+    @media (max-width: 48em) {
+      padding: 8rem 0;
+
+      flex-direction: column;
+      row-gap: 7rem;
+    }
+  }
+
+  // .project-info__group
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4.7rem;
+    flex: 1 1 auto;
+
+    &:not(:first-child) {
+      .project-info__subtitle {
+        font-weight: 500;
+      }
+    }
+  }
+
+  // .project-info__subtitle
+
+  &__subtitle {
+    @media (min-width: 48.01em) {
+      font-size: 1.5rem;
+    }
+  }
+
+  // .project-info__paragraph
+
+  &__paragraph {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5rem;
+    max-width: 45.9rem;
+
+    @media (max-width: 48em) {
+      row-gap: 3rem;
+
+      max-width: 57.3rem;
+    }
+  }
+
+  // .project-info__txt-content
+
+  &__txt-content {
+    text-align: justify;
+  }
+}

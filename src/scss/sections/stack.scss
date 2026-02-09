@@ -1,0 +1,127 @@
+.stack {
+  margin-bottom: 12rem;
+
+  // .stack__container
+
+  &__container {
+    display: grid;
+    grid-template-columns: 48.5rem 1fr;
+    column-gap: 15.6rem;
+
+    @media (max-width: 48em) {
+      display: flex;
+      flex-direction: column;
+      row-gap: 8rem;
+    }
+  }
+
+  // .stack__aside
+
+  &__aside {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  // .stack__title
+
+  &__title {
+    margin-bottom: 9rem;
+
+    @media (max-width: 48em) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  // .stack__txt
+
+  &__txt {
+    margin-bottom: 4rem;
+
+    text-align: justify;
+
+    @media (min-width: 48.01em) {
+      margin-bottom: 7.7rem;
+
+      max-width: 45.3rem;
+    }
+  }
+
+  // .stack__options
+
+  &__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    @media (max-width: 48em) {
+      gap: 1rem;
+    }
+  }
+
+  // .stack__option
+
+  &__option {
+  }
+
+  // .stack__content
+
+  &__content {
+  }
+
+  // .stack__list
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // .stack__item
+
+  &__item {
+  }
+}
+
+.option-btn {
+  position: relative;
+
+  @media (any-hover: hover) {
+    &:hover {
+      .option-btn__txt {
+        background-color: var(--c-primary);
+
+        color: var(--c-bg);
+      }
+    }
+  }
+
+  // .option-btn__input
+
+  &__input {
+    position: absolute;
+    inset: 0;
+
+    appearance: none;
+
+    &:checked + .option-btn__txt {
+      background-color: var(--c-primary);
+
+      color: var(--c-bg);
+    }
+  }
+
+  // .option-btn__txt
+
+  &__txt {
+    padding: 0.5rem 2.2rem;
+
+    display: inline-flex;
+    border: 1px solid var(--c-primary);
+
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+    @media (max-width: 48em) {
+      padding: 1rem 3rem;
+    }
+  }
+}

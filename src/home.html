@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+  @@include('html/_head.htm',{ "title":"Главная" })
+  <body class="">
+    @@include('html/_header.htm',{})
+    <div class="capsule">
+      <div class="wrapper mainpage">
+        <main class="main">
+          @@include('html/hero.htm',{}) @@include('html/about.htm',{})
+          @@include('html/footer-upper.htm',{}) @@include('html/nav.htm',{})
+        </main>
+        @@include('html/_footer.htm',{}) @@include('html/_preloader.htm',{})
+        @@include('html/_svg.htm',{})
+      </div>
+    </div>
+    @@include('html/_js.htm')
+  </body>
+</html>

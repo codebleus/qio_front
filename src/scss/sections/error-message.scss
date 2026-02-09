@@ -1,0 +1,182 @@
+$anims: float, floatReverse, float2, floatReverse2;
+$easeSmooth: cubic-bezier(0.39, 0.575, 0.28, 0.995);
+$color: #c5c9cf;
+
+.error-message {
+  .particle {
+    position: absolute;
+    display: block;
+    pointer-events: none;
+
+    @for $i from 1 through 80 {
+      &:nth-child(#{$i}) {
+        $size: random(20) + 5;
+        $blur: $i * 0.02;
+        $speed: random(20) + 20;
+        $delay: random(10) * 0.1;
+        $anim: nth($anims, random(length($anims)));
+
+        top: random(100) / (100 + $size/8) * 100%;
+        left: random(100) / (100 + $size/10) * 100%;
+        font-size: $size + px;
+        filter: blur((#{$blur}) + px);
+        animation: $speed + s $anim infinite;
+      }
+    }
+  }
+
+  // .error-message__container
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100dvh;
+  }
+
+  &__inner {
+    padding: 3rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 4rem;
+    width: 95rem;
+    min-height: 40rem;
+
+    text-align: center;
+
+    background-color: rgba(255, 255, 255, 0.9);
+
+    @media (max-width: 48em) {
+      width: 69rem;
+      min-height: 43rem;
+    }
+
+    &::before {
+      top: 0;
+      right: 0;
+
+      transform: scaleX(-1);
+    }
+
+    &::after {
+      bottom: 0;
+      right: 0;
+
+      transform: scale(-1, -1);
+    }
+  }
+
+  // .error-message__nums
+
+  &__nums {
+    opacity: 0.6;
+  }
+
+  // .error-message__content
+
+  &__content::before,
+  &__content::after,
+  &__inner::before,
+  &__inner::after {
+    content: '';
+
+    position: absolute;
+
+    width: 4rem;
+    height: 4rem;
+    border-top: 1.5px solid var(--c-primary);
+    border-left: 1.5px solid var(--c-primary);
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+
+    &::before {
+      top: 0;
+      left: 0;
+    }
+
+    &::after {
+      left: 0;
+      bottom: 0;
+
+      transform: scaleY(-1);
+    }
+  }
+
+  // .error-message__txt
+
+  &__txt {
+    font-size: 3rem;
+    line-height: 100%;
+  }
+
+  // .error-message__btn
+
+  &__btn {
+  }
+}
+
+@keyframes apparition {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(180px);
+  }
+}
+
+@keyframes floatReverse {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-180px);
+  }
+}
+
+@keyframes float2 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(28px);
+  }
+}
+
+@keyframes floatReverse2 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-28px);
+  }
+}
+
+@mixin animation($delay, $duration, $animation) {
+  animation-delay: $delay;
+  animation-duration: $duration;
+  animation-name: $animation;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}
