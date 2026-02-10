@@ -132,5 +132,32 @@
     </div>
 
     @@include('html/_js.htm')
+    <script>
+(function () {
+  function measureSafeAreaTop() {
+    const probe = document.createElement('div');
+    probe.style.cssText = `
+      position: fixed;
+      top: 0; left: 0;
+      height: env(safe-area-inset-top, 0px);
+      width: 0;
+      visibility: hidden;
+      pointer-events: none;
+    `;
+    document.body.appendChild(probe);
+    const h = probe.getBoundingClientRect().height;
+    probe.remove();
+
+    const prev = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sat')) || 0;
+    const next = Math.max(prev, h);
+    document.documentElement.style.setProperty('--sat', `${next}px`);
+  }
+
+  window.addEventListener('load', measureSafeAreaTop, { once: true });
+  window.addEventListener('resize', measureSafeAreaTop);
+  window.visualViewport?.addEventListener('resize', measureSafeAreaTop);
+})();
+
+    </script>
   </body>
 </html>

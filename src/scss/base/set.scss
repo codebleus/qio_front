@@ -33,6 +33,18 @@ body {
   background: var(--c-bg);
   -webkit-animation: bugfix infinite 1s;
   overflow-x: clip;
+
+  &::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--sat);
+    background: #fff;
+    z-index: 2147483647;
+    pointer-events: none;
+  }
 }
 
 input,
