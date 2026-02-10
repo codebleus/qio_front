@@ -38,35 +38,39 @@
         </div>
       </div>
     </div>
-    <form action="#" class="cta-form__form">
+    <form data-form-validate action="#" class="cta-form__form">
       <div class="cta-form__fields">
         <div class="cta-form__group">
           <h3 class="cta-form__subtitle txt-alt">Ваши данные</h3>
           <div class="cta-form__fields-group">
-            <div class="cta-form__field field-alt">
+            <div data-field class="cta-form__field field-alt">
               <input
+                data-required
                 type="text"
                 placeholder="Ваше имя "
                 class="field-alt__input"
               />
             </div>
-            <div class="cta-form__field field-alt">
+            <div data-field class="cta-form__field field-alt">
               <input
+                data-required
                 type="text"
                 placeholder="Желаемый способ связи"
                 class="field-alt__input"
               />
             </div>
-            <div class="cta-form__field field-alt">
+            <div data-field class="cta-form__field field-alt">
               <input
+                data-required
                 data-tel-mask
                 type="tel"
                 placeholder="Телефон"
                 class="field-alt__input"
               />
             </div>
-            <div class="cta-form__field field-alt">
+            <div data-field class="cta-form__field field-alt">
               <input
+                data-required
                 data-mail-mask
                 type="text"
                 placeholder="Email"
@@ -144,7 +148,6 @@
                     type="radio"
                     name="budget"
                     value="<1m"
-                    checked
                   />
                   <span class="dotRange__dot" aria-hidden="true"></span>
                   <span class="dotRange__label">&lt;1m</span>

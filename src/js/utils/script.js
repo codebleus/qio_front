@@ -274,6 +274,31 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  (function () {
+    const bar = document.querySelector(".lower-bar_main");
+    const target = document.querySelector(".footer");
+
+    if (!bar || !target) return;
+
+    const setHidden = isHidden => {
+      bar.classList.toggle("_is-hidden", isHidden);
+    };
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          setHidden(entry.isIntersecting);
+        });
+      },
+      {
+        root: null,
+        threshold: 0.01,
+      },
+    );
+
+    observer.observe(target);
+  })();
+
   document.addEventListener("formSubmitted", function (e) {
     openModal("messageModal");
   });

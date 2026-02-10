@@ -515,7 +515,7 @@
 							<li class="context-cases__item item-context-cases">
 								<div class="item-context-cases__inner">
 									<a href="#" class="item-context-cases__bg-wrap">
-										<video src="/files/amkal_overview.mp4" data-videojs data-setup='{"poster":"img/content/amkal.webp"}' class="item-context-cases__bg"></video>
+										<video src="files/amkal_overview.mp4" data-videojs data-setup='{"poster":"img/content/amkal.webp"}' class="item-context-cases__bg"></video>
 									</a>
 									<div class="item-context-cases__content">
 										<h3 data-scramble-text="AMKAL ESPORTS" class="item-context-cases__heading h-alt h-alt_s">
@@ -534,7 +534,7 @@
 							<li class="context-cases__item item-context-cases">
 								<div class="item-context-cases__inner">
 									<a href="#" class="item-context-cases__bg-wrap">
-										<video src="/files/pari-1.mp4" data-videojs data-setup='{"poster":"img/content/cc-2.webp"}' class="item-context-cases__bg"></video>
+										<video src="files/pari-1.mp4" data-videojs data-setup='{"poster":"img/content/cc-2.webp"}' class="item-context-cases__bg"></video>
 									</a>
 									<div class="item-context-cases__content">
 										<h3 data-scramble-text="PARIVISION" class="item-context-cases__heading h-alt h-alt_s">
@@ -553,7 +553,7 @@
 							<li class="context-cases__item item-context-cases">
 								<div class="item-context-cases__inner">
 									<a href="#" class="item-context-cases__bg-wrap">
-										<video src="/files/atlanty-mainpage.mp4" data-videojs data-setup='{"poster":"img/content/cc-3.webp"}' class="item-context-cases__bg"></video>
+										<video src="files/atlanty-mainpage.mp4" data-videojs data-setup='{"poster":"img/content/cc-3.webp"}' class="item-context-cases__bg"></video>
 									</a>
 									<div class="item-context-cases__content">
 										<h3 data-scramble-text="АТЛАНТЫ" class="item-context-cases__heading h-alt h-alt_s">
@@ -701,22 +701,22 @@
 									</div>
 								</div>
 							</div>
-							<form action="#" class="cta-form__form">
+							<form data-form-validate action="#" class="cta-form__form">
 								<div class="cta-form__fields">
 									<div class="cta-form__group">
 										<h3 class="cta-form__subtitle txt-alt">Ваши данные</h3>
 										<div class="cta-form__fields-group">
-											<div class="cta-form__field field-alt">
-												<input type="text" placeholder="Ваше имя " class="field-alt__input" />
+											<div data-field class="cta-form__field field-alt">
+												<input data-required type="text" placeholder="Ваше имя " class="field-alt__input" />
 											</div>
-											<div class="cta-form__field field-alt">
-												<input type="text" placeholder="Желаемый способ связи" class="field-alt__input" />
+											<div data-field class="cta-form__field field-alt">
+												<input data-required type="text" placeholder="Желаемый способ связи" class="field-alt__input" />
 											</div>
-											<div class="cta-form__field field-alt">
-												<input data-tel-mask type="tel" placeholder="Телефон" class="field-alt__input" />
+											<div data-field class="cta-form__field field-alt">
+												<input data-required data-tel-mask type="tel" placeholder="Телефон" class="field-alt__input" />
 											</div>
-											<div class="cta-form__field field-alt">
-												<input data-mail-mask type="text" placeholder="Email" class="field-alt__input" />
+											<div data-field class="cta-form__field field-alt">
+												<input data-required data-mail-mask type="text" placeholder="Email" class="field-alt__input" />
 											</div>
 										</div>
 									</div>
@@ -764,7 +764,7 @@
 												<div class="dotRange__dots">
 													<!-- 1 -->
 													<label class="dotRange__item" style="--x: 0%">
-														<input class="dotRange__radio" type="radio" name="budget" value="<1m" checked />
+														<input class="dotRange__radio" type="radio" name="budget" value="<1m" />
 														<span class="dotRange__dot" aria-hidden="true"></span>
 														<span class="dotRange__label">&lt;1m</span>
 													</label>

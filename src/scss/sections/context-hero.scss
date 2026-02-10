@@ -112,6 +112,13 @@
   }
 }
 
+html:has(.lower-bar_main._is-hidden) {
+  .lower-bar {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
 .btn-alt {
   position: relative;
   display: inline-flex;
@@ -219,6 +226,9 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 25px;
+  transition:
+    opacity 0.3s ease-out,
+    visibility 0.3s ease-out;
   @media (max-width: 49em) {
     height: 9rem;
   }
@@ -235,6 +245,10 @@
     display: inline-flex;
     align-items: center;
     gap: 2rem;
+
+    @media (max-width: 49em) {
+      gap: 3.2rem;
+    }
   }
 
   // .lower-bar__socials-item
@@ -250,6 +264,12 @@
       flex: 0 0 3rem;
       width: 3rem;
       height: 3rem;
+
+      @media (max-width: 49em) {
+        flex: 0 0 4rem;
+        width: 4rem;
+        height: 4rem;
+      }
     }
   }
 

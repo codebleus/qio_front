@@ -1,52 +1,60 @@
-import Inputmask from 'inputmask';
-import { addError, removeError } from '../utils/forms';
+import Inputmask from "inputmask";
+import { addError, removeError } from "../utils/forms";
 
 // --------------------------------------------------------------------------
 
 const handleOnIncomplete = input => {
-  input.value = '';
-  if (input.closest('.field')) {
-    addError(input.closest('.field'), input.closest('form'));
+  input.value = "";
+  if (input.closest(".field")) {
+    addError(input.closest(".field"), input.closest("form"));
   }
 };
 
 const initInputmask = () => {
-  const telInputCollection = document.querySelectorAll('[data-tel-mask]');
-  const mailInputCollection = document.querySelectorAll('[data-mail-mask]');
-  const nameInputCollection = document.querySelectorAll('[data-name-mask]');
+  const telInputCollection = document.querySelectorAll("[data-tel-mask]");
+  const mailInputCollection = document.querySelectorAll("[data-mail-mask]");
+  const nameInputCollection = document.querySelectorAll("[data-name-mask]");
 
   if (telInputCollection.length) {
     telInputCollection.forEach(input => {
       Inputmask({
-        mask: '+7 (999) 999-99-99',
+        mask: "+7 (999) 999-99-99",
         showMaskOnHover: false,
+        showMaskOnFocus: true,
         jitMasking: true,
+        clearIncomplete: true,
+        insertModeVisual: false,
         onincomplete: function () {
           handleOnIncomplete(input);
         },
         oncomplete: function () {
-          // handleOnComplete(input);
+          const field = input.closest(".field");
+          if (field) removeError(field, input.closest("form"));
         },
       }).mask(input);
+
+      input.addEventListener("focus", () => {
+        if (!input.value) input.value = "+7 ";
+      });
     });
   }
   if (mailInputCollection.length) {
     mailInputCollection.forEach(input => {
       Inputmask({
-        mask: '*{3,20}@*{3,20}.*{2,7}',
+        mask: "*{3,20}@*{3,20}.*{2,7}",
         showMaskOnHover: false,
         jitMasking: true,
         clearMaskOnLostFocus: true,
         clearIncomplete: true,
         onincomplete: function () {
           // handleOnIncomplete(input);
-          if (input.closest('.field')) {
-            input.closest('.field').classList.add('_incomplete');
+          if (input.closest(".field")) {
+            input.closest(".field").classList.add("_incomplete");
           }
         },
         oncomplete: function () {
-          if (input.closest('.field')) {
-            input.closest('.field').classList.remove('_incomplete');
+          if (input.closest(".field")) {
+            input.closest(".field").classList.remove("_incomplete");
           }
         },
       }).mask(input);
@@ -57,7 +65,7 @@ const initInputmask = () => {
       Inputmask({
         showMaskOnHover: false,
         jitMasking: true,
-        regex: '^[а-яА-Яa-zA-Z]*[ ][а-яА-Яa-zA-Z]*$',
+        regex: "^[а-яА-Яa-zA-Z]*[ ][а-яА-Яa-zA-Z]*$",
         onincomplete: function () {
           // handleOnIncomplete(input);
         },

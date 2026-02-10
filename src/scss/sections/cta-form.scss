@@ -207,10 +207,10 @@
     }
 
     @media (max-width: 49em) {
-      transform: translate(2rem, 0rem);
-      flex: 0 0 6rem;
-      width: 6rem;
-      height: 6rem;
+      transform: translate(1.8rem, 0rem);
+      flex: 0 0 8rem;
+      width: 8rem;
+      height: 8rem;
     }
   }
 
@@ -227,6 +227,11 @@
   }
 }
 .field-alt {
+  &._has-error {
+    .field-alt__input {
+      border-color: #ff5353;
+    }
+  }
   &:has(textarea.field-alt__input) {
     position: relative;
     grid-column: span 2;
@@ -297,6 +302,7 @@
     font-size: 1.6rem;
     letter-spacing: -0.06em;
     padding: 2.5rem;
+    transition: border-color 0.3s ease-out;
     &::placeholder {
       color: white;
     }
@@ -466,7 +472,10 @@
   height: 1rem;
   border-radius: 99.9rem;
   background: rgb(178, 178, 178);
-  transition: background 0.3s ease-out;
+  transition:
+    background 0.3s ease-out,
+    width 0.15s ease-out,
+    height 0.15s ease-out;
 }
 
 /* подпись */
@@ -485,6 +494,9 @@
 /* активное состояние */
 .dotRange__radio:checked + .dotRange__dot {
   background: white;
+
+  width: 2rem;
+  height: 2rem;
 }
 
 .dotRange__radio:checked ~ .dotRange__label {
