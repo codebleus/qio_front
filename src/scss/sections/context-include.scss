@@ -121,6 +121,16 @@
     }
   }
 
+  &:not(&_selected) {
+    .item-context-include {
+      &__inner {
+        &::before {
+          background-color: white;
+        }
+      }
+    }
+  }
+
   // .item-context-include__inner
 
   &__inner {
