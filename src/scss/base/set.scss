@@ -31,7 +31,6 @@ body {
   font-weight: 500;
   color: var(--c-primary);
   background: var(--c-bg);
-  -webkit-animation: bugfix infinite 1s;
   overflow-x: clip;
 
   &::before {
