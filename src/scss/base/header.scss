@@ -5,16 +5,9 @@
   left: 0;
   width: 100%;
 
-  &::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: env(safe-area-inset-top, 0px);
-    background: var(--header-bg, #fff);
-    z-index: 9999;
-    pointer-events: none;
+  @media (max-width: 49em) {
+    padding-top: env(safe-area-inset-top, 0px);
+    background: #fff;
   }
 
   @media (min-width: 767.1px) {
@@ -26,9 +19,8 @@
   }
 
   @media (max-width: 767px) {
-    padding: 0 3.2rem;
-
-    background-color: rgba(255, 255, 255, 1);
+    padding-left: 3.2rem;
+    padding-right: 3.2rem;
   }
 
   &__container {
