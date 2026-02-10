@@ -5,6 +5,18 @@
   left: 0;
   width: 100%;
 
+  .ios-safe-area {
+    height: var(--sat);
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 2147483647;
+    pointer-events: none;
+
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+
   @media (max-width: 49em) {
     padding-top: env(safe-area-inset-top, 0px);
     background: #fff;

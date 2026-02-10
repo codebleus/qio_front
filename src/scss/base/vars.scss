@@ -6,7 +6,7 @@
   --c-light-gray: #d2d5d9;
   --c-gray-dark: #595959;
   --header-bg: #fff;
-  --sat: 0px;
+  --sat: env(safe-area-inset-top, 0px);
 
   // font family
   --ff-main: "Roobert SemiMono";
