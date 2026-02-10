@@ -17,7 +17,7 @@ html {
   -webkit-animation: bugfix infinite 1s;
   user-select: none;
   overflow-x: clip;
-  background-color: var(--c-bg);
+  background: var(--c-bg);
 }
 
 body {
@@ -30,7 +30,7 @@ body {
   // flex: 1 1 auto;
   font-weight: 500;
   color: var(--c-primary);
-  background-color: var(--c-bg);
+  background: var(--c-bg);
   -webkit-animation: bugfix infinite 1s;
   overflow-x: clip;
 }
